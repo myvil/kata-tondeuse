@@ -25,7 +25,7 @@ public class LaTondeuseTest {
 
     @Test
     void shouldMoveToEast() {
-        tondeuse.move(D);
+        tondeuse.executeCommand(D);
         assertThat(tondeuse.getPosition().getX(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(E));
     }
@@ -33,14 +33,14 @@ public class LaTondeuseTest {
     @Test
     void shouldMoveToWest() {
         Command[] commands = {G,A};
-        tondeuse.move(commands);
+        tondeuse.executeCommand(commands);
         assertThat(tondeuse.getPosition().getX(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(W));
     }
 
     @Test
     void shouldMoveToNorth() {
-        tondeuse.move(A);
+        tondeuse.executeCommand(A);
         assertThat(tondeuse.getPosition().getY(), equalTo(1));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(N));
     }
@@ -48,21 +48,21 @@ public class LaTondeuseTest {
     @Test
     void shouldMoveToSouth() {
         Command[] commands = {D,D,A};
-        tondeuse.move(commands);
+        tondeuse.executeCommand(commands);
         assertThat(tondeuse.getPosition().getY(), equalTo(-1));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(S));
     }
 
     @Test
     void shouldThrowUnexpectedOperationIfOrientationIsNotKnown() {
-        Exception thrown = Assertions.assertThrows(UnsupportedOperationException.class, () -> tondeuse.move(Command.UNKNOWN));
+        Exception thrown = Assertions.assertThrows(UnsupportedOperationException.class, () -> tondeuse.executeCommand(Command.UNKNOWN));
         assertThat(thrown.getMessage(), equalTo(Command.UNKNOWN.name() + "Is not a managed command"));
     }
 
     @Test
     void shouldNotMoveIfPositionOutOfLawn() {
         Command[] commands = {D,A, A, A, A, A, A};
-        tondeuse.move(commands);
+        tondeuse.executeCommand(commands);
         assertThat(tondeuse.getPosition().getX(), equalTo(5));
         assertThat(tondeuse.getPosition().getY(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(E));

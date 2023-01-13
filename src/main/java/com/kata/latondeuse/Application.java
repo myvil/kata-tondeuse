@@ -14,7 +14,7 @@ public class Application {
 
         BufferedReader reader = null;
         List<Tondeuse> tondeuses = new ArrayList<>();
-        List<Command[]> commands = new ArrayList<>();
+
         try {
             reader = new BufferedReader(new FileReader("src/main/resources/input_tondeuse.txt"));
             String line = reader.readLine();
@@ -30,18 +30,18 @@ public class Application {
                 int x = lineScan.nextInt();
                 int y = lineScan.nextInt();
                 String orientation = lineScan.next();
-                tondeuses.add(new Tondeuse(new Position(new Coordinate(x,y,max_x,max_y), Orientation.valueOf(orientation))));
-
+                Tondeuse tondeuse = new Tondeuse(new Position(new Coordinate(x,y,max_x,max_y), Orientation.valueOf(orientation)));
                 line = reader.readLine();
                 if (line != null && !line.equals("")) {
-                    List<Command> command = new ArrayList<>();
+                    List<Command> commands = new ArrayList<>();
                     for (String s : line.split("")) {
-                        command.add(Command.valueOf(s));
+                        commands.add(Command.valueOf(s));
                     }
-                    commands.add(command.toArray(new Command[0]));
+                    tondeuse.setCommands(commands);
                 } else {
                     throw new UnsupportedOperationException("mower commands are missing");
                 }
+                tondeuses.add(tondeuse);
                 line = reader.readLine();
             }
 
@@ -59,9 +59,9 @@ public class Application {
             }
         }
 
-        for (int i = 0; i < tondeuses.size(); i++) {
-            Position position = tondeuses.get(i).move(commands.get(i));
-            System.out.println(position);
-        }
+        tondeuses.stream().forEach(tondeuse -> {
+            System.out.println( tondeuse.executeCommands());
+        });
+
     }
 }

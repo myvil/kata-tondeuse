@@ -1,21 +1,28 @@
 package com.kata.latondeuse;
 
+import java.util.List;
+
 public class Tondeuse {
     private Position position;
+    private List<Command> commands;
 
     public Tondeuse(Position position) {
         this.position = position;
     }
 
-    public Position move(Command[] commands) {
+    public void setCommands(List<Command> commands) {
+        this.commands = commands;
+    }
+
+    public Position executeCommand(Command[] commands) {
         for (Command command :
                 commands) {
-            move(command);
+            executeCommand(command);
         }
         return this.position;
     }
 
-    public Position move(Command command) {
+    public Position executeCommand(Command command) {
         switch (command) {
             case D:
             case G :
@@ -38,5 +45,9 @@ public class Tondeuse {
         return "Tondeuse{" +
                 "position=" + position +
                 '}';
+    }
+
+    public Position executeCommands() {
+        return executeCommand(this.commands.toArray(new Command[0]));
     }
 }
