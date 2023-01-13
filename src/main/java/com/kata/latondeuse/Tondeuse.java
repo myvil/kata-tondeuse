@@ -18,10 +18,8 @@ public class Tondeuse {
     public Position move(Command command) {
         switch (command) {
             case D:
-                this.position.rotateRight();
-                break;
             case G :
-                this.position.rotateLeft();
+                this.position.rotate(command);
                 break;
             case A :
                 this.position.move();

@@ -30,12 +30,8 @@ public class Position {
         return this.orientation;
     }
 
-    public void rotateRight() {
-        this.orientation = Orientation.rotateD(this.orientation);
-    }
-
-    public void rotateLeft() {
-        this.orientation = Orientation.rotateG(this.orientation);
+    public void rotate(Command command) {
+        this.orientation = Orientation.rotate(this.orientation, command);
     }
 
     @Override
