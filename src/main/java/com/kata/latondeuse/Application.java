@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Application {
 
@@ -59,9 +62,15 @@ public class Application {
             }
         }
 
-        tondeuses.stream().forEach(tondeuse -> {
-            System.out.println( tondeuse.executeCommands());
-        });
+        try {
+            ExecutorService executorService = Executors.newFixedThreadPool(tondeuses.size());
+            tondeuses.stream().forEach(tondeuse -> executorService.submit(tondeuse));
+            executorService.shutdown();
+
+            executorService.awaitTermination(300, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -2,7 +2,7 @@ package com.kata.latondeuse;
 
 import java.util.List;
 
-public class Tondeuse {
+public class Tondeuse implements Runnable {
     private Position position;
     private List<Command> commands;
 
@@ -12,6 +12,11 @@ public class Tondeuse {
 
     public void setCommands(List<Command> commands) {
         this.commands = commands;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(executeCommands());
     }
 
     public Position executeCommand(Command[] commands) {
