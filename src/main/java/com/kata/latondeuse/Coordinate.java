@@ -14,7 +14,9 @@ public class Coordinate {
     }
 
     public void moveY(int step) {
-        this.y += step;
+        if(isValidY(step + this.y)) {
+            this.y += step;
+        }
     }
 
     public int getY() {
