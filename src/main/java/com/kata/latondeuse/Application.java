@@ -1,5 +1,7 @@
 package com.kata.latondeuse;
 
+import com.kata.latondeuse.domain.*;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,11 +35,11 @@ public class Application {
                 Tondeuse tondeuse = new Tondeuse(new Position(new Coordinate(x,y,max_x,max_y), Orientation.valueOf(orientation)));
                 line = reader.readLine();
                 if (line != null && !line.equals("")) {
-                    List<Command> commands = new ArrayList<>();
+                    List<Instruction> instructions = new ArrayList<>();
                     for (String s : line.split("")) {
-                        commands.add(Command.valueOf(s));
+                        instructions.add(Instruction.valueOf(s));
                     }
-                    tondeuse.setCommands(commands);
+                    tondeuse.setCommands(instructions);
                 } else {
                     throw new UnsupportedOperationException("mower commands are missing");
                 }
@@ -62,6 +64,13 @@ public class Application {
         tondeuses.stream().forEach(tondeuse -> {
             System.out.println( tondeuse.executeCommands());
         });
+
+        for (Tondeuse tondeuse :
+                tondeuses) {
+/*            tondeuse.initialize(0,0, E);
+            tondeuse.explore(instruction);
+            tondeuse.communicateResult();*/
+        }
 
     }
 }

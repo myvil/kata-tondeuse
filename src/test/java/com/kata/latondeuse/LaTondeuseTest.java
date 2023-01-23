@@ -1,11 +1,12 @@
 package com.kata.latondeuse;
 
+import com.kata.latondeuse.domain.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.kata.latondeuse.Command.*;
-import static com.kata.latondeuse.Orientation.*;
+import static com.kata.latondeuse.domain.Instruction.*;
+import static com.kata.latondeuse.domain.Orientation.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -32,8 +33,8 @@ public class LaTondeuseTest {
 
     @Test
     void shouldMoveToWest() {
-        Command[] commands = {G,A};
-        tondeuse.executeCommand(commands);
+        Instruction[] instructions = {G,A};
+        tondeuse.executeCommand(instructions);
         assertThat(tondeuse.getPosition().getX(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(W));
     }
@@ -47,22 +48,22 @@ public class LaTondeuseTest {
 
     @Test
     void shouldMoveToSouth() {
-        Command[] commands = {D,D,A};
-        tondeuse.executeCommand(commands);
-        assertThat(tondeuse.getPosition().getY(), equalTo(-1));
+        Instruction[] instructions = {D,D,A};
+        tondeuse.executeCommand(instructions);
+        assertThat(tondeuse.getPosition().getY(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(S));
     }
 
     @Test
     void shouldThrowUnexpectedOperationIfOrientationIsNotKnown() {
-        Exception thrown = Assertions.assertThrows(UnsupportedOperationException.class, () -> tondeuse.executeCommand(Command.UNKNOWN));
-        assertThat(thrown.getMessage(), equalTo(Command.UNKNOWN.name() + "Is not a managed command"));
+        Exception thrown = Assertions.assertThrows(UnsupportedOperationException.class, () -> tondeuse.executeCommand(Instruction.UNKNOWN));
+        assertThat(thrown.getMessage(), equalTo(Instruction.UNKNOWN.name() + "Is not a managed command"));
     }
 
     @Test
     void shouldNotMoveIfPositionOutOfLawn() {
-        Command[] commands = {D,A, A, A, A, A, A};
-        tondeuse.executeCommand(commands);
+        Instruction[] instructions = {D,A, A, A, A, A, A};
+        tondeuse.executeCommand(instructions);
         assertThat(tondeuse.getPosition().getX(), equalTo(5));
         assertThat(tondeuse.getPosition().getY(), equalTo(0));
         assertThat(tondeuse.getPosition().getOrientation(), equalTo(E));
