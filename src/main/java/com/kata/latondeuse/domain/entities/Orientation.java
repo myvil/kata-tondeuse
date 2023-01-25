@@ -1,6 +1,6 @@
-package com.kata.latondeuse.domain;
+package com.kata.latondeuse.domain.entities;
 
-import static com.kata.latondeuse.domain.Instruction.*;
+import static com.kata.latondeuse.domain.entities.Instruction.*;
 
 public enum Orientation {
     N, S, W, E;

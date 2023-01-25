@@ -1,4 +1,4 @@
-package com.kata.latondeuse.domain;
+package com.kata.latondeuse.domain.entities;
 
 public class Position {
     private Coordinate coordinate;
