@@ -25,16 +25,17 @@ public class LaTondeuseTest {
 
     @Test
     void shouldMoveToEast() {
-        tondeuse.executeInstructions(D);
-        assertThat(tondeuse.getPosition().getX(), equalTo(0));
-        assertThat(tondeuse.getPosition().getOrientation(), equalTo(E));
+        Position position = tondeuse.getPosition();
+        position.rotate(D);
+        assertThat(position.getX(), equalTo(0));
+        assertThat(position.getOrientation(), equalTo(E));
     }
 
     @Test
     void shouldMoveToWest() {
-        tondeuse.executeInstructions(G,A);
-        assertThat(tondeuse.getPosition().getX(), equalTo(0));
-        assertThat(tondeuse.getPosition().getOrientation(), equalTo(W));
+        Position position = tondeuse.executeInstructions(G,A);
+        assertThat(position.getX(), equalTo(0));
+        assertThat(position.getOrientation(), equalTo(W));
     }
 
     @Test
