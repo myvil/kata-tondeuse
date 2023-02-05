@@ -31,7 +31,7 @@ public class Position {
     }
 
     public void rotate(Instruction instruction) {
-        this.orientation = Orientation.rotate(this.orientation, instruction);
+        this.orientation = this.orientation.rotate(instruction);
     }
 
     @Override
